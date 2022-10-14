@@ -32,11 +32,15 @@ class Flatten {
           else
             pointer = pointer[part][idx];
         } else {
-          if (!(pointer as Map).containsKey(part)) pointer[part] = {};
-          if (parts.last == part)
+
+          if (!(pointer is String) && !(pointer as Map).containsKey(part)) pointer[part] = {};
+          if (!(pointer is String) && parts.last == part)
             pointer[part] = normalized[path];
           else
-            pointer = pointer[part];
+            if(!(pointer is String))
+              pointer = pointer[part];
+            else
+              pointer = part;
         }
       }
     });
